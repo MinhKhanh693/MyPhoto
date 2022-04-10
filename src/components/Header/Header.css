@@ -1,0 +1,13 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-filter {
+    border-top: 1px solid #e5e5e5;
+}
+.notification-box{
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+}
