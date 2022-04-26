@@ -8,7 +8,7 @@
   margin-bottom: 1rem;
   padding: 0 40px;
   width: 100%;
-  margin: 10px 0px;
+  margin: 10px;
 }
 .ant-carousel .slick-next::before {
   content: "" !important;
@@ -38,8 +38,8 @@
   height: 117px;
   width: 100%;
 }
-.sticky .navbar-filter{
-  margin-left: -40px ;
+.sticky{
+  margin: 0px 0px 0px -55px;
 }
 
 .active .ant-typography {
@@ -61,6 +61,7 @@
   .navbar {
     justify-content: space-evenly;
     gap: 10px;
+    margin-top: -5px;
   }
   #header {
     padding: 0;
@@ -70,17 +71,27 @@
   }
   .sticky .navbar-filter{
     margin-left: 0px ;
+    margin-top: -5px;
   }
+  .sticky{
+    height: 85px;
+  }
+
 }
 @media only screen and (min-width: 414px) and (max-width: 736px) {
   .sticky {
     margin-left: -50px;
+    height: 85px;
   }
   .sticky .navbar-filter{
     margin-left: 0px ;
+    margin-top: -5px;
   }
   .slick-slider{
     height: 20px;
+  }
+  .navbar{
+    margin-top: -5px;
   }
 
 

@@ -216,7 +216,7 @@ function NavBarFilter({ topic }) {
         arrows
         {...settings}
         slidesToShow={
-          breakpoints.xl ? 10 : breakpoints.lg ? 6 : breakpoints.md ? 3 : 2
+          breakpoints.xl ? 9 : breakpoints.lg ? 6 : breakpoints.md ? 3 : 2
         }
         style={{ textAlign: "center" }}
       >
