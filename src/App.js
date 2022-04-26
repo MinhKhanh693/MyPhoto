@@ -8,7 +8,7 @@ import { TopicPhotoLayout } from "./features/TopicPhoto/Pages/TopicPhotoLayout";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomeLayout />} />
+      <Route path="/MyPhoto/" element={<HomeLayout />} />
       <Route path="/topic/:id" element={<TopicPhotoLayout />} />
       <Route path="/search/:keyword" element={<SearchLayout />} />
     </Routes>
