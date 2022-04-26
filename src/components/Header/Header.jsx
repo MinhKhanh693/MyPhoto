@@ -1,26 +1,50 @@
-import
-  {
-    BellOutlined, FacebookOutlined, GithubOutlined, GoogleOutlined, HomeOutlined, LogoutOutlined, ProfileOutlined, SettingOutlined
-  } from "@ant-design/icons";
-import
-  {
-    Avatar,
-    Badge, Dropdown,
-    Input,
-    List,
-    Menu,
-    Space,
-    Typography
-  } from "antd";
+import {
+  BellOutlined,
+  FacebookOutlined,
+  GithubOutlined,
+  GoogleOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  ProfileOutlined,
+  SettingOutlined,
+  MenuOutlined,
+  LeftOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
+import {
+  Avatar,
+  BackTop,
+  Badge,
+  Button,
+  Carousel,
+  Drawer,
+  Dropdown,
+  Grid,
+  Input,
+  List,
+  Menu,
+  Space,
+  Typography,
+} from "antd";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { TopPicApis } from "../../api";
 import { Notification } from "../../utils/Notification";
 import "./Header.css";
+import { setNameTopic } from "../../features/TopicPhoto";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 const { Search } = Input;
+const { useBreakpoint } = Grid;
 export function Headers() {
+  const breakpoints = useBreakpoint();
   const [topic, setTopic] = useState([]);
   const [user, setUser] = useState({});
+  const [sticky, setSticky] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   //call api TopPic
   useEffect(() => {
@@ -42,20 +66,34 @@ export function Headers() {
       });
   }, []);
 
+  useEffect(() => {
+    const handleScrooll = () => {
+      if (window.scrollY > 100) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    };
+    window.addEventListener("scroll", handleScrooll);
+  }, []);
+
   return (
-    <Fragment>
+    <div className={sticky ? "sticky" : ""}>
       <div className="navbar">
-        <Typography.Title level={2} type="secondary">
-          MyPho
-          <Typography.Text level={2} type="success">
-            to
-          </Typography.Text>
-        </Typography.Title>
+        <Link to="/">
+          <Typography.Title level={breakpoints.xl ? 2 : 3} type="secondary">
+            MyPho
+            <Typography.Text level={breakpoints.xl ? 2 : 3} type="success">
+              to
+            </Typography.Text>
+          </Typography.Title>
+        </Link>
         <Navigation />
         <UserActions user={user} settingDropDown={settingDropDown} />
       </div>
       <NavBarFilter topic={topic} />
-    </Fragment>
+      <BackTop style={{ right: 30 }}></BackTop>
+    </div>
   );
 }
 
@@ -85,6 +123,7 @@ function settingDropDown() {
 }
 
 function NotifiDropDown({ user }) {
+  const breakpoints = useBreakpoint();
   const data = user.data.results;
   return (
     <div className="notification-box">
@@ -93,10 +132,10 @@ function NotifiDropDown({ user }) {
       </Typography.Title>
       <List
         style={{
-          width: 500,
+          width: breakpoints.xl ? 500 : breakpoints.lg ? 400 : 300,
           background: "#fff",
           overflow: "auto",
-          height: 500,
+          height: breakpoints.xl ? 500 : breakpoints.lg ? 400 : 300,
         }}
         bordered
         size="large"
@@ -118,35 +157,102 @@ function NotifiDropDown({ user }) {
 }
 
 function NavBarFilter({ topic }) {
+  const dispatch = useDispatch();
+  const handleGetTopic = (id) => {
+    dispatch(setNameTopic(id));
+  };
   return (
     <div className="navbar-filter">
-      <Space size="large" align="start">
-        {topic.map((item) => (
-          <Typography.Text
-            key={item.id}
-            style={{
-              fontSize: 14,
-              fontWeight: 500,
-              cursor: "pointer",
-              padding: 5,
-            }}
-          >
-            {item.title}
-          </Typography.Text>
-        ))}
-      </Space>
+      <NavBarFilterXXl />
     </div>
   );
+
+  function NavBarFilterXXl() {
+    const breakpoints = useBreakpoint();
+
+    const SampleNextArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={className}
+          style={{
+            ...style,
+            color: "black",
+            fontSize: "18px",
+            lineHeight: "1.5715",
+          }}
+          onClick={onClick}
+        >
+          <RightOutlined />
+        </div>
+      );
+    };
+
+    const SamplePrevArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={className}
+          style={{
+            ...style,
+            color: "black",
+            fontSize: "18px",
+            lineHeight: "1.5715",
+            marginBottom: 2
+          }}
+          onClick={onClick}
+        >
+          <LeftOutlined />
+        </div>
+      );
+    };
+    const settings = {
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />,
+    };
+
+    return (
+      <Carousel
+        arrows
+        {...settings}
+        slidesToShow={
+          breakpoints.xl ? 10 : breakpoints.lg ? 6 : breakpoints.md ? 3 : 2
+        }
+        style={{ textAlign: "center", marginLeft: "-50px" }}
+      >
+        {topic.map((item) => (
+          <div key={item.id}>
+            <NavLink to={"/topic/" + item.id} key={item.id}>
+              <Typography.Text
+                key={item.id}
+                style={{
+                  fontSize: 14,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  padding: 3,
+                  width: 150,
+                }}
+                onClick={handleGetTopic(item.id)}
+              >
+                {item.title}
+              </Typography.Text>
+            </NavLink>
+          </div>
+        ))}
+      </Carousel>
+    );
+  }
 }
 
 function UserActions({ user, settingDropDown }) {
+  const breakpoints = useBreakpoint();
   return (
-    <Space size="large">
+    <Space size={breakpoints.xl ? "large" : "small"}>
       <Dropdown overlay={<NotifiDropDown user={user} />}>
         <Badge count={99} overflowCount={10} size="small">
           <BellOutlined
             style={{
-              fontSize: "25px",
+              fontSize: breakpoints.xl ? "25px" : "20px",
               cursor: "pointer",
             }}
           />
@@ -155,54 +261,130 @@ function UserActions({ user, settingDropDown }) {
       <Dropdown overlay={settingDropDown}>
         <SettingOutlined
           style={{
-            fontSize: "25px",
+            fontSize: breakpoints.xl ? "25px" : "20px",
             cursor: "pointer",
           }}
         />
       </Dropdown>
       <Avatar
         size="large"
-        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+        src="https://s120-ava-talk.zadn.vn/5/3/b/f/1/120/f1f7fde0c7600594fa4d2c4532cec7aa.jpg"
       ></Avatar>
     </Space>
   );
 }
 
 function Navigation() {
+  const breakpoints = useBreakpoint();
+  const [visible, setVisible] = useState(false);
+  const [keyWord, setkeyWord] = useState("");
+  const navigate = useNavigate();
+  const showDrawer = () => {
+    setVisible(!visible);
+  };
   return (
     <Space size="large">
       <Search
         placeholder="input search text"
         allowClear
         style={{
-          width: 350,
-          display: "flex",
+          width: breakpoints.xl ? 350 : 250,
+          display: breakpoints.sm ? "flex" : "none",
+        }}
+        value={keyWord}
+        onChange={(e) => setkeyWord(e.target.value)}
+        onSearch={(e) => {
+          if (keyWord.trim() === "") {
+            navigate("/");
+          } else {
+            navigate("/search/" + keyWord);
+          }
         }}
       ></Search>
-      <Menu
-        mode="horizontal"
-        defaultActiveFirst={1}
-        style={{
-          width: 500,
-        }}
-      >
-        <Menu.Item key={1}>
-          <HomeOutlined />
-          <span>Home</span>
-        </Menu.Item>
-        <Menu.Item>
-          <GithubOutlined />
-          <span>GitHub</span>
-        </Menu.Item>
-        <Menu.Item>
-          <FacebookOutlined />
-          <span>FaceBook</span>
-        </Menu.Item>
-        <Menu.Item>
-          <GoogleOutlined />
-          <span>Gmail</span>
-        </Menu.Item>
-      </Menu>
+      {breakpoints.xl ? <MenuXl mode="horizontal" /> : <MenuX />}
     </Space>
   );
+
+  function MenuXl({ mode }) {
+    return (
+      <Fragment>
+        <Search
+          placeholder="input search text"
+          allowClear
+          style={{
+            width: breakpoints.xl ? 350 : 250,
+            display: breakpoints.xs ? "flex" : "none",
+          }}
+          value={keyWord}
+          onChange={(e) => setkeyWord(e.target.value)}
+          onSearch={(e) => {
+            if (keyWord.trim() === "") {
+              navigate("/");
+            } else {
+              navigate("/search/" + keyWord);
+            }
+          }}
+        ></Search>
+        <Menu
+          mode={mode}
+          defaultActiveFirst={1}
+          style={{
+            width: 500,
+          }}
+        >
+          <Menu.Item key={1}>
+            <HomeOutlined />
+            <span>Home</span>
+          </Menu.Item>
+          <Menu.Item>
+            <GithubOutlined />
+            <span
+              onClick={(e) => window.open("https://github.com/MinhKhanh693")}
+            >
+              GitHub
+            </span>
+          </Menu.Item>
+          <Menu.Item>
+            <FacebookOutlined />
+            <span
+              onClick={(e) =>
+                window.open("https://www.facebook.com/MinhKhanhh09/")
+              }
+            >
+              FaceBook
+            </span>
+          </Menu.Item>
+          <Menu.Item>
+            <GoogleOutlined />
+            <span
+              onClick={(e) => {
+                window.location.href = "mailto:khanhdoan693@gmail.com";
+                e.preventDefault();
+              }}
+              title="khanhdoan693@gmail.com"
+            >
+              Gmail
+            </span>
+          </Menu.Item>
+        </Menu>
+      </Fragment>
+    );
+  }
+  function MenuX() {
+    return (
+      <Fragment>
+        <Button onClick={showDrawer}>
+          <MenuOutlined />
+        </Button>
+        <Drawer
+          title="Menu"
+          placement="right"
+          onClose={showDrawer}
+          visible={visible}
+        >
+          <MenuXl mode="vertical" />
+        </Drawer>
+      </Fragment>
+    );
+  }
 }

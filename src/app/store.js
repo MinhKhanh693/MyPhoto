@@ -1,5 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import TopicPhotoSlice from "../features/TopicPhoto/TopicPhotoSlice";
 
 export const store = configureStore({
-    reducer: {}
+  reducer: {
+    TopicPhoto: TopicPhotoSlice,
+  },
 });

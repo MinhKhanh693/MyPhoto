@@ -1,13 +1,61 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  width: 100%;
 }
 .navbar-filter {
-    border-top: 1px solid #e5e5e5;
+  margin-bottom: 1rem;
+  padding: 0 40px;
+  width: 100%;
+  margin: 10px 0px;
 }
-.notification-box{
+.ant-carousel .slick-next::before {
+  content: "" !important;
+}
+.ant-carousel .slick-prev::before {
+  content: "" !important;
+}
+.notification-box {
   background: #fff;
   padding: 10px;
   border: 1px solid #e5e5e5;
+}
+#header {
+  background: #fff;
+  height: auto;
+}
+#line-header {
+  width: 100%;
+  height: 3px;
+  box-shadow: 13px 13px 100px #8d8d8d, -13px -13px 100px #ffffff;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  height: 117px;
+  width: 100vw;
+}
+.active .ant-typography {
+  color: #1890ff;
+}
+
+/* responsive header ipad pro */
+@media only screen and (max-width: 1024px) {
+  .navbar {
+    justify-content: space-evenly;
+    gap: 10px;
+  }
+}
+/* responsive header ipad pro */
+@media only screen and (max-width: 376px) {
+  .navbar {
+    justify-content: space-evenly;
+    gap: 10px;
+  }
+  #header {
+    padding: 0;
+  }
 }
