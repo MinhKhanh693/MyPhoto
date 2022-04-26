@@ -36,8 +36,9 @@
   z-index: 10;
   background: #fff;
   height: 117px;
-  width: 100vw;
+  width: 100%;
 }
+
 .active .ant-typography {
   color: #1890ff;
 }
@@ -47,6 +48,9 @@
   .navbar {
     justify-content: space-evenly;
     gap: 10px;
+  }
+  .sticky .navbar-filter {
+    margin-left: -40px;
   }
 }
 /* responsive header ipad pro */
@@ -58,4 +62,19 @@
   #header {
     padding: 0;
   }
+  .slick-list {
+    height: 20px;
+  }
+  .sticky .navbar-filter{
+    margin-left: 0px ;
+  }
+}
+@media only screen and (min-width: 414px) and (max-width: 736px) {
+  .sticky {
+    margin-left: -50px;
+  }
+  .sticky .navbar-filter{
+    margin-left: 0px ;
+  }
+
 }

@@ -218,7 +218,7 @@ function NavBarFilter({ topic }) {
         slidesToShow={
           breakpoints.xl ? 10 : breakpoints.lg ? 6 : breakpoints.md ? 3 : 2
         }
-        style={{ textAlign: "center", marginLeft: "-50px" }}
+        style={{ textAlign: "center" }}
       >
         {topic.map((item) => (
           <div key={item.id}>
