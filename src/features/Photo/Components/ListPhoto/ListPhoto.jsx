@@ -1,4 +1,4 @@
-import { Col, Image, Row, Skeleton } from "antd";
+import {  Col, Image, Row, Skeleton } from "antd";
 import React, { Fragment, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { photoApis, searchPhotoApis } from "../../../../api";
 import Loading from "../../../../utils/loading/loading";
 export function ListPhoto({ listPhoto, isTopicPage, isSearchPage, keyWord }) {
-
   const [list, setList] = useState([]);
   const [page, setPage] = useState(0);
   const [pageSearch, setPageSearch] = useState(2);
@@ -40,7 +39,7 @@ export function ListPhoto({ listPhoto, isTopicPage, isSearchPage, keyWord }) {
         <Loading />
       </div>
     );
-    
+  console.log(list);
   return (
     <Fragment>
       <InfiniteScroll
@@ -55,7 +54,7 @@ export function ListPhoto({ listPhoto, isTopicPage, isSearchPage, keyWord }) {
           <Masonry>
             {list.map((item, index) => (
               <Image
-                title={`View The photo by ${item?.user?.name}`}
+                title={`View The photo by ${item?.user?.name} on Unsplash`}
                 key={index}
                 src={item?.urls?.small}
                 width="100%"
@@ -63,6 +62,7 @@ export function ListPhoto({ listPhoto, isTopicPage, isSearchPage, keyWord }) {
                 style={{ padding: 7 }}
                 placeholder={<Skeleton.Image active></Skeleton.Image>}
                 preview={{
+                  title: `View The photo by ${item?.user?.name} on Unsplash`,
                   src: item?.urls?.full,
                 }}
               />
