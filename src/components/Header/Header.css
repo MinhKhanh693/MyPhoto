@@ -38,6 +38,9 @@
   height: 117px;
   width: 100%;
 }
+.sticky .navbar-filter{
+  margin-left: -40px ;
+}
 
 .active .ant-typography {
   color: #1890ff;
@@ -76,5 +79,9 @@
   .sticky .navbar-filter{
     margin-left: 0px ;
   }
+  .slick-slider{
+    height: 20px;
+  }
+
 
 }
