@@ -80,7 +80,7 @@ export function Headers() {
   return (
     <div className={sticky ? "sticky" : ""}>
       <div className="navbar">
-        <Link to="/">
+        <Link to="/MyPhoto/">
           <Typography.Title level={breakpoints.xl ? 2 : 3} type="secondary">
             MyPho
             <Typography.Text level={breakpoints.xl ? 2 : 3} type="success">
@@ -295,7 +295,7 @@ function Navigation() {
         onChange={(e) => setkeyWord(e.target.value)}
         onSearch={(e) => {
           if (keyWord.trim() === "") {
-            navigate("/");
+            navigate("/MyPhoto/");
           } else {
             navigate("/search/" + keyWord);
           }
