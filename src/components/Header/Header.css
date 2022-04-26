@@ -75,6 +75,7 @@
   }
   .sticky{
     height: 85px;
+    margin: 0px;
   }
 
 }
