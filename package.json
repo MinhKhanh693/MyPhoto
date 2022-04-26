@@ -2,7 +2,7 @@
   "name": "my-photo",
   "version": "0.1.0",
   "private": true,
-  "homepage": " https://minhkhanh693.github.io/MyPhoto/",
+  "homepage": "https://minhkhanh693.github.io/MyPhoto",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
@@ -18,7 +19,6 @@
     "react-redux": "^7.2.6",
     "react-responsive-masonry": "^2.1.4",
     "react-router-dom": "^6.3.0",
-    "gh-pages": "^3.2.3",
     "react-scripts": "5.0.0"
   },
   "scripts": {
@@ -30,7 +30,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
