@@ -198,7 +198,7 @@ function NavBarFilter({ topic }) {
             color: "black",
             fontSize: "18px",
             lineHeight: "1.5715",
-            marginBottom: 2
+            marginBottom: 2,
           }}
           onClick={onClick}
         >
@@ -306,6 +306,7 @@ function Navigation() {
   );
 
   function MenuXl({ mode }) {
+    const [keyWord, setkeyWord] = useState("");
     return (
       <Fragment>
         <Search
